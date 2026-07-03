@@ -1,5 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
+import { Organization } from './organization.entity';
+import { User } from '../../users/entities/user.entity';
 
 export enum OrganizationRole {
   OWNER = 'OWNER',
@@ -22,4 +24,12 @@ export class OrganizationMember extends BaseEntity {
     enum: OrganizationRole,
   })
   role: OrganizationRole;
+
+  @ManyToOne(() => Organization)
+  @JoinColumn({ name: 'organizationId' })
+  organization: Organization;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId' })
+  user: User;
 }
