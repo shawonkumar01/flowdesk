@@ -12,6 +12,7 @@ import { CustomersModule } from './customers/customers.module';
 import { DealsModule } from './deals/deals.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ActivityModule } from './activity/activity.module';
+import { InvitationsModule } from './invitations/invitations.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -37,6 +38,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     DealsModule,
     TasksModule,
     ActivityModule,
+    InvitationsModule,
   ],
   controllers: [AppController],
   providers: [
