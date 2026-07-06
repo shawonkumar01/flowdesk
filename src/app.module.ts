@@ -11,6 +11,7 @@ import { OrganizationModule } from './organization/organization.module';
 import { CustomersModule } from './customers/customers.module';
 import { DealsModule } from './deals/deals.module';
 import { TasksModule } from './tasks/tasks.module';
+import { ActivityModule } from './activity/activity.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -35,6 +36,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     CustomersModule,
     DealsModule,
     TasksModule,
+    ActivityModule,
   ],
   controllers: [AppController],
   providers: [
