@@ -9,6 +9,7 @@ import { getTypeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
 import { OrganizationModule } from './organization/organization.module';
 import { CustomersModule } from './customers/customers.module';
+import { DealsModule } from './deals/deals.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -31,6 +32,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     AuthModule,
     OrganizationModule,
     CustomersModule,
+    DealsModule,
   ],
   controllers: [AppController],
   providers: [
