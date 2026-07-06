@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { OrganizationModule } from './organization/organization.module';
 import { CustomersModule } from './customers/customers.module';
 import { DealsModule } from './deals/deals.module';
+import { TasksModule } from './tasks/tasks.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -33,6 +34,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     OrganizationModule,
     CustomersModule,
     DealsModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [
