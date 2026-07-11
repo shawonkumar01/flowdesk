@@ -14,6 +14,7 @@ import { DealsModule } from './deals/deals.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ActivityModule } from './activity/activity.module';
 import { InvitationsModule } from './invitations/invitations.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -41,6 +42,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     TasksModule,
     ActivityModule,
     InvitationsModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [
