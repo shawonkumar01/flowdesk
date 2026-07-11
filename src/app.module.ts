@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { getTypeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 import { OrganizationModule } from './organization/organization.module';
 import { CustomersModule } from './customers/customers.module';
 import { DealsModule } from './deals/deals.module';
@@ -33,6 +34,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
       },
     ]),
     AuthModule,
+    UsersModule,
     OrganizationModule,
     CustomersModule,
     DealsModule,
