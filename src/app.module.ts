@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { BullModule } from '@nestjs/bull';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { getTypeOrmConfig } from './config/typeorm.config';
@@ -15,6 +16,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { ActivityModule } from './activity/activity.module';
 import { InvitationsModule } from './invitations/invitations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -27,6 +29,12 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
       imports: [ConfigModule],
       useFactory: getTypeOrmConfig,
       inject: [ConfigService],
+    }),
+    BullModule.forRoot({
+      redis: {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+      },
     }),
     ThrottlerModule.forRoot([
       {
@@ -43,6 +51,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     ActivityModule,
     InvitationsModule,
     DashboardModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [
