@@ -18,6 +18,7 @@ import { InvitationsModule } from './invitations/invitations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NotesModule } from './notes/notes.module';
+import { FilesModule } from './files/files.module';
 import { CacheModule } from './cache/cache.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
@@ -56,6 +57,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     DashboardModule,
     NotificationsModule,
     NotesModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [
