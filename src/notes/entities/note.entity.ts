@@ -4,6 +4,9 @@ import { BaseEntity } from '../../common/entities/base.entity';
 @Entity('notes')
 export class Note extends BaseEntity {
   @Column()
+  organizationId: string;
+
+  @Column()
   customerId: string;
 
   @Column()
