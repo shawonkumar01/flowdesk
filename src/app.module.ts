@@ -19,6 +19,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NotesModule } from './notes/notes.module';
 import { FilesModule } from './files/files.module';
+import { BillingModule } from './billing/billing.module';
 import { CacheModule } from './cache/cache.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
@@ -58,6 +59,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     NotificationsModule,
     NotesModule,
     FilesModule,
+    BillingModule,
   ],
   controllers: [AppController],
   providers: [
