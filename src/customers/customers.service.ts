@@ -4,7 +4,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like, FindOptionsWhere } from 'typeorm';
+import { Repository, FindOptionsWhere } from 'typeorm';
 import { Customer } from './entities/customer.entity';
 import { OrganizationMember } from '../organization/entities/organization-member.entity';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -54,29 +54,33 @@ export class CustomersService {
       throw new ForbiddenException('Access denied');
     }
 
-    const where: FindOptionsWhere<Customer> = { organizationId };
-
-    if (query.search) {
-      where.name = Like(`%${query.search}%`);
-    }
-
-    if (query.company) {
-      where.company = Like(`%${query.company}%`);
-    }
-
     const page = query.page || 1;
     const limit = query.limit || 10;
     const sortBy = query.sortBy || 'createdAt';
     const sortOrder = query.sortOrder || 'DESC';
 
-    const [data, total] = await this.customerRepository.findAndCount({
-      where,
-      skip: (page - 1) * limit,
-      take: limit,
-      order: {
-        [sortBy]: sortOrder,
-      },
-    });
+    let queryBuilder = this.customerRepository
+      .createQueryBuilder('customer')
+      .where('customer.organizationId = :organizationId', { organizationId });
+
+    if (query.search) {
+      queryBuilder = queryBuilder.andWhere(
+        'to_tsvector("english", customer.name || \' \' || COALESCE(customer.company, \'\') || \' \' || COALESCE(customer.notes, \'\')) @@ to_tsquery(:search)',
+        { search: query.search.split(' ').join(' & ') },
+      );
+    }
+
+    if (query.company) {
+      queryBuilder = queryBuilder.andWhere('customer.company LIKE :company', {
+        company: `%${query.company}%`,
+      });
+    }
+
+    const [data, total] = await queryBuilder
+      .skip((page - 1) * limit)
+      .take(limit)
+      .orderBy(`customer.${sortBy}`, sortOrder)
+      .getManyAndCount();
 
     return {
       data,

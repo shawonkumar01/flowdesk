@@ -1,7 +1,8 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
 
 @Entity('customers')
+@Index('customer_search_idx', { synchronize: false })
 export class Customer extends BaseEntity {
   @Column()
   organizationId: string;
@@ -26,4 +27,7 @@ export class Customer extends BaseEntity {
 
   @Column()
   createdBy: string;
+
+  @Column({ type: 'tsvector', select: false, nullable: true })
+  searchVector: string;
 }
