@@ -38,6 +38,44 @@ services:
     networks:
       - flowdesk_network
 
+  app:
+    build: .
+    container_name: flowdesk_app
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=password123
+      - DATABASE_NAME=flowdesk
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - PORT=3000
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - flowdesk_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: flowdesk_nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    networks:
+      - flowdesk_network
+
 volumes:
   postgres_data:
   redis_data:
