@@ -17,6 +17,7 @@ import { ActivityModule } from './activity/activity.module';
 import { InvitationsModule } from './invitations/invitations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { CacheModule } from './cache/cache.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -42,6 +43,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
         limit: 100,
       },
     ]),
+    CacheModule,
     AuthModule,
     UsersModule,
     OrganizationModule,
